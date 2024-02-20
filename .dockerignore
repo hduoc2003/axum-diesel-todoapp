@@ -1,0 +1,18 @@
+# gitignore
+/result*
+/target
+
+# Docker-specific
+**/target
+*.nix
+/.cargo
+.direnv
+.git
+/flake.lock
+justfile
+## Meta
+.dockerignore
+Dockerfile*
+docker-compose.yml
+shared
+tempo-data
