@@ -6,7 +6,7 @@ CREATE TABLE users (
   username VARCHAR(50) NOT NULL,
   mobile VARCHAR(15),
   email VARCHAR(50),
-  password_hash VARCHAR(32) NOT NULL,
+  password_hash VARCHAR(150) NOT NULL,
   registered_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   last_login TIMESTAMP,
   intro TEXT,
