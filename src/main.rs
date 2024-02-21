@@ -1,12 +1,12 @@
 use axum::Router;
-use v1::api::routes::auth;
-use v1::api::{
+use api::v1::routes::auth;
+use api::v1::{
     db::database::get_connection_pool, types::env::ENV, utils::env::get_env,
 };
 // use v1::api::routes::signup::handle_signup;
 mod config;
 mod schema;
-mod v1;
+mod api;
 
 #[tokio::main]
 async fn main() {
@@ -14,7 +14,7 @@ async fn main() {
     let connection_pool = get_connection_pool().await;
 
     let app = Router::new()
-        .nest("/v1/api", Router::new()
+        .nest("/api/v1", Router::new()
             .merge(auth::router::router())
         )
         .with_state(connection_pool);

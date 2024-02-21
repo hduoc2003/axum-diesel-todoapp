@@ -1,7 +1,7 @@
 use dotenv::dotenv;
 use tokio::sync::OnceCell;
 
-use crate::v1::api::{types::env::ENV, utils::env::get_env};
+use crate::api::v1::{types::env::ENV, utils::env::get_env};
 
 // Define a struct to represent server configuration
 #[derive(Debug)]
