@@ -1,10 +1,9 @@
 use axum::{http::StatusCode, Json};
-use diesel::SelectableHelper;
 use serde::{Deserialize, Serialize};
 use diesel_async::RunQueryDsl;
 
 
-use crate::{schema::users, v1::api::{db::database::DatabaseConnection, models::users::{NewUser, User}, utils::{errors::{internal_error, ErrorResponse}, hashing::hash_password, response::OkResponse}}};
+use crate::{schema::users, v1::api::{db::database::DatabaseConnection, models::users::NewUser, utils::{errors::{internal_error, ErrorResponse}, hashing::hash_password, response::OkResponse}}};
 
 #[derive(Debug, Deserialize)]
 pub struct SignupRequest {
