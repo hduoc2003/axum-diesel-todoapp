@@ -25,4 +25,5 @@ diesel-derive-enum = { version = "2.1.0", features = ["postgres"] }
 lazy_static = "1.4.0"
 bb8 = "0.8.3"
 argon2 = "0.5.3"
+jsonwebtoken = "9.2.0"
 

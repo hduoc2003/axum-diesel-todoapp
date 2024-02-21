@@ -5,5 +5,7 @@ pub enum ENV {
     HOST,
     PORT,
     DATABASE,
-    DATABASE_URL
+    DATABASE_URL,
+    JWT_KEY,
+    JWT_EXPIRED_TIME
 }

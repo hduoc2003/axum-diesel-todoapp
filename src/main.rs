@@ -1,6 +1,7 @@
 use axum::Router;
+use v1::api::routes::auth;
 use v1::api::{
-    db::database::get_connection_pool, routes::signup, types::env::ENV, utils::env::get_env,
+    db::database::get_connection_pool, types::env::ENV, utils::env::get_env,
 };
 // use v1::api::routes::signup::handle_signup;
 mod config;
@@ -13,7 +14,9 @@ async fn main() {
     let connection_pool = get_connection_pool().await;
 
     let app = Router::new()
-        .nest("/v1/api", signup::routes())
+        .nest("/v1/api", Router::new()
+            .merge(auth::router::router())
+        )
         .with_state(connection_pool);
 
     let listener =
