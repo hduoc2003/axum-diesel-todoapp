@@ -2,33 +2,33 @@ version: '3.9'
 networks:
   my-network:
 services:
-  # migration:
-  #   build:
-  #     context: .
-  #     dockerfile: migration.dockerfile
-  #   env_file:
-  #     - .env.production
-  #   stdin_open: true
-  #   tty: true
-  #   networks:
-  #     - my-network
-  #   depends_on:
-  #     - db
-  # backend:
-  #   image: rust-todoapp-backend
-  #   build: .
-  #   ports:
-  #     - "1204:1204"
-  #   restart: always
-  #   stdin_open: true
-  #   tty: true
-  #   env_file:
-  #     - .env.production
-  #   depends_on:
-  #     - db
-  #     - migration
-  #   networks:
-  #     - my-network
+  migration:
+    build:
+      context: .
+      dockerfile: migration.dockerfile
+    env_file:
+      - .env.production
+    stdin_open: true
+    tty: true
+    networks:
+      - my-network
+    depends_on:
+      - db
+  backend:
+    image: rust-todoapp-backend
+    build: .
+    ports:
+      - "1204:1204"
+    restart: always
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env.production
+    depends_on:
+      - db
+      - migration
+    networks:
+      - my-network
   db:
     image: postgres:15.6
     restart: always
