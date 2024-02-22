@@ -13,10 +13,11 @@ use crate::api::v1::utils::response::OkResponse;
 use crate::api::v1::{db::database::DatabaseConnection, utils::errors::ErrorResponse};
 use crate::schema::tasks;
 
-#[derive(Queryable, AsChangeset)]
+#[derive(Queryable, Identifiable, AsChangeset)]
 #[derive(Deserialize)]
 #[diesel(table_name = crate::schema::tasks)]
 pub struct UpdTaskReq {
+    pub id: i64,
     pub title: Option<String>,
     pub description: Option<String>,
     pub status: Option<ProgressStatus>, /* TODO: unknown type StatusEnum */
