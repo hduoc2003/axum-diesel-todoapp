@@ -5,12 +5,10 @@ use argon2::{
     },
     Argon2
 };
-use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
+use jsonwebtoken::{decode, encode, errors::Error, DecodingKey, EncodingKey, Header, Validation};
 
 
-use crate::api::v1::types::{env::ENV, session::Session};
-
-use super::env::get_env;
+use crate::{api::v1::types::session::Session, config::env_config::get_env};
 
 pub fn hash_password(password: &String) -> String {
     let salt = SaltString::generate(&mut OsRng);
@@ -23,12 +21,17 @@ pub fn verify_password(password: &String, password_hash: &String) -> bool {
     Argon2::default().verify_password(password.as_bytes(), &parsed_hash).is_ok()
 }
 
-pub fn verify_token(token: String) -> Session {
-    let jwt_key = get_env(ENV::JWT_KEY);
-    decode::<Session>(&token, &DecodingKey::from_secret(&jwt_key.as_bytes()), &Validation::default()).unwrap().claims
+pub fn verify_token(token: String) -> Result<Session, Error> {
+    let jwt_key = &get_env().JWT_KEY;
+    // println!("{}", jwt_key);
+    Ok(decode::<Session>(
+        &token,
+        &DecodingKey::from_secret(&jwt_key.as_bytes()),
+        &Validation::default()
+    )?.claims)
 }
 
 pub fn encrypt_session(session: &Session) -> String {
-    let jwt_key = get_env(ENV::JWT_KEY);
+    let jwt_key = &get_env().JWT_KEY;
     encode(&Header::default(), &session, &EncodingKey::from_secret(&jwt_key.as_bytes())).unwrap()
 }

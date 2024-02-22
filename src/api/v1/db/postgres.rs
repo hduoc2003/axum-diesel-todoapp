@@ -27,11 +27,11 @@ impl DbBase for PostgresDb {
         .returning(User::as_returning())
         .get_result(&mut self.conn).await {
             Ok(data) => {
-                // println!("{:?}", data);
+                // // println!("{:?}", data);
                 Ok(())
             },
             Err(err) => {
-                // eprintln!("{}", err);
+                // e// println!("{}", err);
                 Err(ErrorResponse {
                     status: StatusCode::INTERNAL_SERVER_ERROR,
                     msg: err.to_string(),

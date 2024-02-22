@@ -1,4 +1,6 @@
 
+use diesel::{backend::Backend, deserialize::{self, FromSql}, pg::Pg, sql_types::Text};
+use serde::{Deserialize, Serialize};
 use strum_macros::AsRefStr;
 
 #[derive(AsRefStr)]
@@ -10,11 +12,14 @@ pub enum DatabaseType {
 }
 
 #[derive(Debug)]
-#[derive(diesel_derive_enum::DbEnum)]
+#[derive(diesel_derive_enum::DbEnum, Serialize, Deserialize)]
 #[ExistingTypePath = "crate::schema::sql_types::StatusEnum"]
 pub enum ProgressStatus {
+    #[db_rename = "Pending"]
     Pending,
+    #[db_rename = "InProgress"]
     InProgress,
+    #[db_rename = "Completed"]
     Completed
 }
 

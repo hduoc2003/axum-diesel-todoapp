@@ -16,3 +16,15 @@ Dockerfile*
 docker-compose.yml
 shared
 tempo-data
+
+# database mounting
+/postgres-mount
+
+# ide
+/.vscode
+/.idea
+
+# app logs
+/logs
+
+/test

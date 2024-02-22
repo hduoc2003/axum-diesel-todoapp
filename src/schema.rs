@@ -66,8 +66,6 @@ diesel::table! {
     tasks (id) {
         id -> Int8,
         user_id -> Int8,
-        created_by -> Int8,
-        updated_by -> Int8,
         #[max_length = 512]
         title -> Varchar,
         #[max_length = 2048]

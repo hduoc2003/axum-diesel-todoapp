@@ -23,3 +23,6 @@ postgres-mount/
 # ide
 .vscode/
 .idea/
+
+# app logs
+logs/

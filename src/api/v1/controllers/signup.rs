@@ -1,9 +1,10 @@
 use axum::{http::StatusCode, Json};
 use serde::{Deserialize, Serialize};
 use diesel_async::RunQueryDsl;
+use diesel::prelude::*;
 
 
-use crate::{schema::users, api::v1::{db::database::DatabaseConnection, models::users::NewUser, utils::{errors::{internal_error, ErrorResponse}, hashing::hash_password, response::OkResponse}}};
+use crate::{api::v1::{db::database::DatabaseConnection, models::users::{NewUser, User}, utils::{errors::{internal_error, ErrorResponse}, hashing::hash_password, response::OkResponse}}, schema::users};
 
 #[derive(Debug, Deserialize)]
 pub struct SignupRequest {
@@ -16,6 +17,7 @@ pub struct SignupResponse {
 
 }
 
+#[tracing::instrument(skip_all, fields(username = %req.username))]
 pub async fn handle_signup(
     DatabaseConnection(mut conn): DatabaseConnection,
     Json(req): Json<SignupRequest>
@@ -26,7 +28,7 @@ pub async fn handle_signup(
             password_hash: &hash_password(&req.password),
         })
         // .returning(User::as_returning())
-        // .get_result(&mut conn)
+        // .get_result::<User>(&mut conn)
         .execute(&mut conn)
         .await;
     return match result {

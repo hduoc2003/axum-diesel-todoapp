@@ -3,8 +3,6 @@ CREATE TYPE status_enum AS ENUM ('Pending', 'InProgress', 'Completed');
 CREATE TABLE tasks (
   id BIGSERIAL PRIMARY KEY,
   user_id BIGINT NOT NULL,
-  created_by BIGINT NOT NULL,
-  updated_by BIGINT NOT NULL,
   title VARCHAR(512) NOT NULL,
   description VARCHAR(2048),
   status status_enum NOT NULL DEFAULT 'Pending',

@@ -5,12 +5,12 @@ use axum::{
 };
 use diesel_async::{pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection};
 
-use crate::api::v1::{types::env::ENV, utils::{env::get_env, errors::ErrorResponse}};
+use crate::{api::v1::utils::errors::ErrorResponse, config::env_config::get_env};
 
 pub type Pool = bb8::Pool<AsyncDieselConnectionManager<AsyncPgConnection>>;
 
 pub async fn get_connection_pool() -> Pool {
-    let db_url = get_env(ENV::DATABASE_URL);
+    let db_url = &get_env().DATABASE_URL;
     let config = AsyncDieselConnectionManager::<diesel_async::AsyncPgConnection>::new(db_url);
     bb8::Pool::builder().build(config).await.unwrap()
 }
@@ -38,3 +38,4 @@ where
         Ok(Self(conn))
     }
 }
+
