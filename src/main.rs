@@ -1,5 +1,7 @@
 use config::env_config::get_env;
-
+extern crate openssl;
+#[macro_use]
+extern crate diesel;
 // use v1::api::routes::signup::handle_signup;
 mod config;
 mod schema;

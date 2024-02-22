@@ -1,16 +1,34 @@
 version: '3.9'
+networks:
+  my-network:
 services:
+  migration:
+    build:
+      context: .
+      dockerfile: migration.dockerfile
+    env_file:
+      - .env.production
+    stdin_open: true
+    tty: true
+    networks:
+      - my-network
+    depends_on:
+      - db
   backend:
     image: rust-todoapp-backend
     build: .
     ports:
       - "1204:1204"
+    restart: always
     stdin_open: true
     tty: true
     env_file:
-      - .env
+      - .env.production
     depends_on:
       - db
+      - migration
+    networks:
+      - my-network
   db:
     image: postgres:15.6
     restart: always
@@ -20,6 +38,8 @@ services:
     volumes:
       - ./postgres-mount:/var/lib/postgresql/data
     stdin_open: true
+    tty: true
     ports:
-      - "5433:5432"
-    hostname: hduoc2003
+      - "5432:5432"
+    networks:
+      - my-network

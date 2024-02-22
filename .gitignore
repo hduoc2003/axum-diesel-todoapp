@@ -16,6 +16,7 @@ Cargo.lock
 # .env
 .env
 postgres.env
+.env.production
 
 # database mounting
 postgres-mount/
