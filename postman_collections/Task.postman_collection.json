@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "1d10c7ed-463a-42a1-bf6c-6f6d1ae1e0a9",
+		"name": "Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33091744",
+		"_collection_link": "https://red-shadow-288073.postman.co/workspace/Team-Workspace~bf852dae-e1d7-4b67-8960-f2c16ddf28ed/collection/33091744-1d10c7ed-463a-42a1-bf6c-6f6d1ae1e0a9?action=share&source=collection_link&creator=33091744"
+	},
+	"item": [
+		{
+			"name": "Create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"title\",\r\n    \"description\": \"description\",\r\n    \"content\": \"content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/task/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"task",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"task_id\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/task/delete",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"task",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"task2\",\r\n    \"status\": \"Completed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/task/update",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"task",
+						"update"
+					]
+				},
+				"description": "``` json\npub struct UpdTaskReq {\n    pub id: i64,\n    pub title: Option<String>,\n    pub description: Option<String>,\n    pub status: Option<ProgressStatus>, \n    pub updated_at: Option<NaiveDateTime>,\n    pub planned_start_date: Option<NaiveDateTime>,\n    pub planned_end_date: Option<NaiveDateTime>,\n    pub actual_start_date: Option<NaiveDateTime>,\n    pub actual_end_date: Option<NaiveDateTime>,\n    pub content: Option<String>,\n}\n\n ```\n\nAny combination of above fields"
+			},
+			"response": []
+		}
+	]
+}
