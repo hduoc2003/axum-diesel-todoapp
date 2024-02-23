@@ -29,6 +29,8 @@ services:
       - migration
     networks:
       - my-network
+    volumes:
+      - "logs:/app/logs"
   db:
     image: postgres:15.6
     restart: always
